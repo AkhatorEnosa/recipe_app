@@ -27,10 +27,9 @@ npm install
 ```
 
 #### Backend
-Navigate to the backend directory (e.g., `backend/`) and run:
+Clone the recipe_app_api repo and run:
 
 ```bash
-cd backend
 npm install
 ```
 
@@ -78,16 +77,6 @@ Ensure the React Native app is configured to connect to the backend API. Update 
 
 Edit files inside the **app** directory to develop the frontend. The project uses [file-based routing](https://docs.expo.dev/router/introduction) for navigation. Modify the backend code in the `backend/` directory to update API endpoints or logic.
 
-## Get a Fresh Project
-
-To reset the project and start from a blank slate, run:
-
-```bash
-npm run reset-project
-```
-
-This moves the starter code to the **app-example** directory and creates a blank **app** directory for fresh development.
-
 ## Learn More
 
 Explore these resources to enhance your development experience:
@@ -97,13 +86,5 @@ Explore these resources to enhance your development experience:
 - [Learn Expo Tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial for creating a project that runs on Android, iOS, and the web.
 - [Node.js Documentation](https://nodejs.org/en/docs/): Understand the backend runtime environment.
 - [Express Documentation](https://expressjs.com/en/starter/installing.html): Learn how to build APIs with Express.
-
-## Join the Community
-
-Connect with other developers building universal apps:
-
-- [Expo on GitHub](https://github.com/expo/expo): Contribute to the open-source platform.
-- [Discord Community](https://chat.expo.dev): Chat with Expo users and ask questions.
-- [Node.js Community](https://nodejs.org/en/community/): Engage with the Node.js ecosystem.
 
 </xaiArtifact>
