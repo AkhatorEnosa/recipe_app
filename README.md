@@ -1,51 +1,109 @@
-rewrite "# Welcome to your Expo app 👋
+<xaiArtifact artifact_id="a417bf56-027f-4dfd-9a5c-54600c9747e0" artifact_version_id="b5f7ba12-d73a-40f3-b356-f6aa6911fea2" title="README.md" contentType="text/markdown">
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Welcome to Your Recipe App 👋
 
-## Get started
+This is a recipe discovery app built with [React Native](https://reactnative.dev/) and [Expo](https://expo.dev), designed to help you find and explore recipes. The app connects to a backend API built with [Node.js](https://nodejs.org/) and [Express](https://expressjs.com/) to fetch and manage recipe data.
 
-1. Install dependencies
+## Get Started
 
-   ```bash
-   npm install
-   ```
+Follow these steps to set up and run the project locally:
 
-2. Start the app
+### 1. Clone the Repository
 
-   ```bash
-   npx expo start
-   ```
+```bash
+git clone <repository-url>
+cd <repository-folder>
+```
 
-In the output, you'll find options to open the app in a
+### 2. Install Dependencies
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+Install the required dependencies for both the frontend (React Native) and backend (Node.js + Express).
+
+#### Frontend
+Navigate to the project root directory and run:
+
+```bash
+npm install
+```
+
+#### Backend
+Navigate to the backend directory (e.g., `backend/`) and run:
+
+```bash
+cd backend
+npm install
+```
+
+### 3. Set Up Environment Variables
+
+Create a `.env` file in the `backend/` directory and configure the necessary environment variables (e.g., database connection details, API keys). Example:
+
+```env
+PORT=5000
+DATABASE_URL=your_database_connection_string
+```
+
+Check the backend documentation for specific configuration requirements.
+
+### 4. Start the Backend API
+
+From the `backend/` directory, start the Node.js + Express server:
+
+```bash
+npm start
+```
+
+The backend API will typically run on `http://localhost:5000`.
+
+### 5. Start the Frontend App
+
+From the project root directory, start the Expo app:
+
+```bash
+npx expo start
+```
+
+In the output, you'll find options to open the app in a:
+
+- [Development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 6. Configure API Endpoint
 
-## Get a fresh project
+Ensure the React Native app is configured to connect to the backend API. Update the API URL in the frontend configuration (e.g., in `app/config.js` or similar) to point to your backend (e.g., `http://localhost:5000/api`).
 
-When you're ready, run:
+### 7. Start Developing
+
+Edit files inside the **app** directory to develop the frontend. The project uses [file-based routing](https://docs.expo.dev/router/introduction) for navigation. Modify the backend code in the `backend/` directory to update API endpoints or logic.
+
+## Get a Fresh Project
+
+To reset the project and start from a blank slate, run:
 
 ```bash
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+This moves the starter code to the **app-example** directory and creates a blank **app** directory for fresh development.
 
-## Learn more
+## Learn More
 
-To learn more about developing your project with Expo, look at the following resources:
+Explore these resources to enhance your development experience:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- [React Native Documentation](https://reactnative.dev/docs/getting-started): Learn the fundamentals of React Native.
+- [Expo Documentation](https://docs.expo.dev/): Dive into Expo fundamentals or advanced [guides](https://docs.expo.dev/guides).
+- [Learn Expo Tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial for creating a project that runs on Android, iOS, and the web.
+- [Node.js Documentation](https://nodejs.org/en/docs/): Understand the backend runtime environment.
+- [Express Documentation](https://expressjs.com/en/starter/installing.html): Learn how to build APIs with Express.
 
-## Join the community
+## Join the Community
 
-Join our community of developers creating universal apps.
+Connect with other developers building universal apps:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-" readme file to highlight that it is a recipe app built with react native for finding recipes and that it is hooked to a backend api built with Nodejs + Express. Also add steps to run the project locally
+- [Expo on GitHub](https://github.com/expo/expo): Contribute to the open-source platform.
+- [Discord Community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Node.js Community](https://nodejs.org/en/community/): Engage with the Node.js ecosystem.
+
+</xaiArtifact>
