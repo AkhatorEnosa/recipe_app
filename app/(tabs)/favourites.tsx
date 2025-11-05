@@ -8,24 +8,25 @@ import { COLORS } from '@/constants/colors';
 import RecipeCard from '@/components/RecipeCard';
 import { Ionicons } from '@expo/vector-icons';
 import NoFavoritesFound from '@/components/NoFavoritesFound';
-import { AppContext } from '@/context/AppContext';
 
 const Favourites = () => {
   const { signOut } = useClerk();
   const { user } = useUser();
-  const { isLoading, setIsLoading } = useContext(AppContext)
+  // const { isLoading, setIsLoading } = useContext(AppContext)
   const [favourites, setFavourites] = useState([])
-  // const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   
 
   useEffect(() => {
     const loadFavourites = async () => {
       try {
-        const apiResponse = await fetch(`${API_URL}/favorites/${user?.id}`);
+        setLoading(true);
+        const apiResponse = await fetch(`${API_URL}/favourites/${user?.id}`);
 
         if (!apiResponse.ok) throw new Error('Failed to fetch favourites')
         
         const favouritesData = await apiResponse.json();
+        console.log(favouritesData)
 
         // transform the data to match the RecipeCard component's expected format
         const transformedFavorites = favouritesData.map((favourite: any) => ({
@@ -39,7 +40,7 @@ const Favourites = () => {
         console.log(`Error fetching favourites: ${user?.id}`, error);
         Alert.alert("Error", "Failed to load favourites");
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     }
 
@@ -53,7 +54,7 @@ const Favourites = () => {
     ]);
   };
 
-if (isLoading) return <LoadingSpinner message="Loading your favorites..." />;
+if (loading) return <LoadingSpinner message="Loading your favorites..." />;
 
   return (
     <View style={favoritesStyles.container}>

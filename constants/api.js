@@ -1,1 +1,1 @@
-export const API_URL = "https://recipe-app-api-5g3t.onrender.com/api"
+export const API_URL = "https://recipe-app-api-y33l.onrender.com/api"

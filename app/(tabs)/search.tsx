@@ -1,13 +1,13 @@
 import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import { MealAPI } from '@/services/mealApi'
-import { useDebounce } from '@/hooks./useDebounce';
 import { searchStyles } from "../../assets/styles/search.styles.js"
 import { Recipe } from '@/constants/types';
 import { COLORS } from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import RecipeCard from '@/components/RecipeCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { useDebounce } from '@/hooks/useDebounce';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
