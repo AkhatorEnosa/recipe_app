@@ -5,16 +5,16 @@ import { MealAPI } from "../../services/mealApi.js";
 import { homeStyles } from "../../assets/styles/home.styles.js"
 import { COLORS } from '@/constants/colors.js';
 import { Ionicons } from '@expo/vector-icons';
-import CategoryFilter from '../../components/CategoryFilter';
+// import CategoryFilter from '../../components/CategoryFilter';
 import { Recipe } from '@/constants/types.js';
 import RecipeCard from '@/components/RecipeCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 const HomeScreen = () => {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [featuredRecipe, setFeaturedRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -23,33 +23,36 @@ const HomeScreen = () => {
     try {
       setLoading(true);
 
-      const [apiCategories, randomMeals, featuredMeal] = await Promise.all([
-        MealAPI.getCategories(),
+      // const [apiCategories, randomMeals, featuredMeal] = await Promise.all([
+      const [randomMeals, featuredMeal] = await Promise.all([
+        // MealAPI.getCategories(),
         MealAPI.getRandomMeals(12),
         MealAPI.getRandomMeal(),
       ]);
 
-      const transformedCategories = apiCategories.map(
-        (cat: { strCategory: string; strCategoryThumb: string; strCategoryDescription: string }, index: number) => ({
-          id: index + 1,
-          name: cat.strCategory,
-          image: cat.strCategoryThumb,
-          description: cat.strCategoryDescription,
-        })
-      );
+      // const transformedCategories = apiCategories.map(
+      //   (cat: { strCategory: string; strCategoryThumb: string; strCategoryDescription: string }, index: number) => ({
+      //     id: index + 1,
+      //     name: cat.strCategory,
+      //     image: cat.strCategoryThumb,
+      //     description: cat.strCategoryDescription,
+      //   })
+      // );
 
-      setCategories(transformedCategories);
+      // setCategories(transformedCategories);
 
-      if (!selectedCategory) setSelectedCategory(transformedCategories[0].name);
+      // if (!selectedCategory) setSelectedCategory(transformedCategories[0].name);
 
-      const transformedMeals = randomMeals
-        .map((meal: any) => MealAPI.transformMealData(meal))
-        .filter((meal) => meal !== null);
+      // const transformedMeals = randomMeals
+      //   .map((meal: any) => MealAPI.transformMealData(meal))
+      //   .filter((meal) => meal !== null);
 
-      setRecipes(transformedMeals);
+      // setRecipes(transformedMeals);
+      setRecipes(randomMeals);
 
-      const transformedFeatured = MealAPI.transformMealData(featuredMeal);
-      setFeaturedRecipe(transformedFeatured);
+      // const transformedFeatured = MealAPI.transformMealData(featuredMeal);
+      // setFeaturedRecipe(transformedFeatured);
+      setFeaturedRecipe(featuredMeal);
     } catch (error) {
       console.log("Error loading the data", error);
     } finally {
@@ -57,23 +60,23 @@ const HomeScreen = () => {
     }
   };
 
-  const loadCategoryData = async (category: string) => {
-    try {
-      const meals = await MealAPI.filterByCategory(category);
-      const transformedMeals = meals
-        .map((meal : Recipe) => MealAPI.transformMealData(meal))
-        .filter((meal : Recipe) => meal !== null);
-      setRecipes(transformedMeals);
-    } catch (error) {
-      console.error("Error loading category data:", error);
-      setRecipes([]);
-    }
-  };
+  // const loadCategoryData = async (category: string) => {
+  //   try {
+  //     const meals = await MealAPI.filterByCategory(category);
+  //     const transformedMeals = meals
+  //       .map((meal : Recipe) => MealAPI.transformMealData(meal))
+  //       .filter((meal : Recipe) => meal !== null);
+  //     setRecipes(transformedMeals);
+  //   } catch (error) {
+  //     console.error("Error loading category data:", error);
+  //     setRecipes([]);
+  //   }
+  // };
 
-  const handleCategorySelect = async (category: string) => {
-    setSelectedCategory(category);
-    await loadCategoryData(category);
-  };
+  // const handleCategorySelect = async (category: string) => {
+  //   setSelectedCategory(category);
+  //   await loadCategoryData(category);
+  // };
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -111,7 +114,7 @@ const HomeScreen = () => {
               >
                 <View style={homeStyles.featuredImageContainer}>
                   <Image
-                    source={{ uri: featuredRecipe.image }}
+                    source={{ uri: featuredRecipe.image ? featuredRecipe.image : 'https://share.google/images/7N3tj8m1Mhz4Z81bz' }}
                     style={homeStyles.featuredImage}
                     resizeMode="cover"
                     transition={500}
@@ -123,22 +126,22 @@ const HomeScreen = () => {
 
                     <View style={homeStyles.featuredContent}>
                       <Text style={homeStyles.featuredTitle} numberOfLines={2}>
-                        {featuredRecipe.title}
+                        {featuredRecipe.name}
                       </Text>
 
                       <View style={homeStyles.featuredMeta}>
                         <View style={homeStyles.metaItem}>
                           <Ionicons name="time-outline" size={16} color={COLORS.white} />
-                          <Text style={homeStyles.metaText}>{featuredRecipe.cookTime}</Text>
+                          <Text style={homeStyles.metaText}>{featuredRecipe.cookTimeMinutes}</Text>
                         </View>
                         <View style={homeStyles.metaItem}>
                           <Ionicons name="people-outline" size={16} color={COLORS.white} />
                           <Text style={homeStyles.metaText}>{featuredRecipe.servings}</Text>
                         </View>
-                        {featuredRecipe.area && (
+                        {featuredRecipe.cuisine && (
                           <View style={homeStyles.metaItem}>
                             <Ionicons name="location-outline" size={16} color={COLORS.white} />
-                            <Text style={homeStyles.metaText}>{featuredRecipe.area}</Text>
+                            <Text style={homeStyles.metaText}>{featuredRecipe.cuisine}</Text>
                           </View>
                         )}
                       </View>
@@ -150,7 +153,7 @@ const HomeScreen = () => {
           )
         }
 
-        {
+        {/* {
           categories.length > 0 && (
             <CategoryFilter
               categories={categories}
@@ -158,12 +161,12 @@ const HomeScreen = () => {
               onSelectCategory={handleCategorySelect}
             />
           )
-        }
+        } */}
 
         <View style={homeStyles.recipesSection}>
-          <View style={homeStyles.sectionHeader}>
+          {/* <View style={homeStyles.sectionHeader}>
             <Text style={homeStyles.sectionTitle}>{selectedCategory}</Text>
-          </View>
+          </View> */}
 
 
           {recipes.length > 0 ? (

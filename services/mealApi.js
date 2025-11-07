@@ -1,4 +1,10 @@
-const BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
+// const BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
+const BASE_URL = "https://dummyjson.com/recipes"
+
+// get random Number 
+const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
 
 export const MealAPI = {
     // search meal by name
@@ -27,10 +33,13 @@ export const MealAPI = {
 
     // lookup a single random meal
     getRandomMeal: async () => {
+
         try {
-            const response = await fetch(`${BASE_URL}/random.php`);
+            // const response = await fetch(`${BASE_URL}/random.php`);
+            const response = await fetch(`${BASE_URL}/10`);
             const data = await response.json();
-            return data.meals ? data.meals[0] : null;
+            // return data.meals ? data.meals[0] : null;
+            return data ? data : null;
         } catch (error) {
             console.error("Error getting random meal:", error);
             return null;
@@ -38,13 +47,24 @@ export const MealAPI = {
     },
 
     // get multiple random meals
-    getRandomMeals: async (count = 6) => {
+    // getRandomMeals: async (count = 6) => {
+    //     try {
+    //         const promises = Array(count)
+    //             .fill()
+    //             .map(() => MealAPI.getRandomMeal(1, 39));
+    //         const meals = await Promise.all(promises);
+    //         return meals.filter((meal) => meal !== null);
+    //     } catch (error) {
+    //         console.error("Error getting random meals:", error);
+    //         return [];
+    //     }
+    // },
+
+    getRandomMeals: async (count) => {
         try {
-            const promises = Array(count)
-                .fill()
-                .map(() => MealAPI.getRandomMeal());
-            const meals = await Promise.all(promises);
-            return meals.filter((meal) => meal !== null);
+            const response = await fetch(`${BASE_URL}?limit=${count}&skip=${getRandomNumber(0, 39)}`);
+            const data = await response.json();
+            return data.recipes || [];
         } catch (error) {
             console.error("Error getting random meals:", error);
             return [];
