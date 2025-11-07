@@ -1,19 +1,15 @@
 export type Recipe = {
-    id: number;
-    name: string;
-    ingredients: string[];
-    instructions: string[];
-    prepTimeMinutes: number;
-    cookTimeMinutes: number;
+    id: any;
+    title: any;
+    description: string;
+    image: any;
+    cookTime: string;
     servings: number;
-    difficulty: string;
-    cuisine: string;
-    tags: string[];
-    userId: number;
-    image: string;
-    rating: number;
-    reviewCount: number;
-    mealType: string[];
+    category: any;
+    area: any;
+    ingredients: string[];
+    instructions: any;
+    originalData: any;
 };
 
 export type debouncedProps = {

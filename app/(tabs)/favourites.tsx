@@ -1,5 +1,5 @@
 import { View, Text, Alert, FlatList, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useClerk, useUser } from '@clerk/clerk-expo'
 import { API_URL } from "@/constants/api"
 import { favoritesStyles } from "../../assets/styles/favourites.styles";
@@ -8,6 +8,7 @@ import { COLORS } from '@/constants/colors';
 import RecipeCard from '@/components/RecipeCard';
 import { Ionicons } from '@expo/vector-icons';
 import NoFavoritesFound from '@/components/NoFavoritesFound';
+import { Recipe } from '@/constants/types';
 
 const Favourites = () => {
   const { signOut } = useClerk();
@@ -50,7 +51,7 @@ const Favourites = () => {
   const handleSignOut = () => {
     Alert.alert("Logout", "Are you sure you want to logout?", [
       { text: "Cancel", style: "cancel" },
-      { text: "Logout", style: "destructive", onPress: signOut },
+      { text: "Logout", style: "destructive", onPress: () => signOut() },
     ]);
   };
 
@@ -69,7 +70,7 @@ if (loading) return <LoadingSpinner message="Loading your favorites..." />;
         <View style={favoritesStyles.recipesSection}>
           <FlatList
             data={favourites}
-            renderItem={({ item }) => <RecipeCard recipe={item} />}
+            renderItem={({ item }: {item: Recipe}) => <RecipeCard recipe={item} />}
             keyExtractor={(item) => item.id.toString()}
             numColumns={2}
             columnWrapperStyle={favoritesStyles.row}

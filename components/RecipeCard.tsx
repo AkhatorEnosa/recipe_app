@@ -17,9 +17,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
     >
       <View style={recipeCardStyles.imageContainer}>
         <Image
-          source={{
-            uri: recipe.image ? recipe.image : 'https://share.google/images/7N3tj8m1Mhz4Z81bz'
-          }}
+          source={{ uri: recipe.image }}
           style={recipeCardStyles.image}
           contentFit="cover"
           transition={300}
@@ -28,19 +26,19 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 
       <View style={recipeCardStyles.content}>
         <Text style={recipeCardStyles.title} numberOfLines={2}>
-          {recipe.name}
+          {recipe.title}
         </Text>
-        {recipe.tags.length > 0 && (
+        {recipe.description && (
           <Text style={recipeCardStyles.description} numberOfLines={2}>
-            {recipe.tags.join(", ")}
+            {recipe.description}
           </Text>
         )}
 
         <View style={recipeCardStyles.footer}>
-          {recipe.cookTimeMinutes && (
+          {recipe.cookTime && (
             <View style={recipeCardStyles.timeContainer}>
               <Ionicons name="time-outline" size={14} color={COLORS.textLight} />
-              <Text style={recipeCardStyles.timeText}>{recipe.cookTimeMinutes}</Text>
+              <Text style={recipeCardStyles.timeText}>{recipe.cookTime}</Text>
             </View>
           )}
           {recipe.servings && (
