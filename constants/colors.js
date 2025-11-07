@@ -17,6 +17,7 @@ const forestTheme = {
   white: "#FFFFFF",
   textLight: "#66BB6A",
   card: "#FFFFFF",
+  gray: "#757575",
   shadow: "#000000",
 };
 

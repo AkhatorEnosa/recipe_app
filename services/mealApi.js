@@ -109,6 +109,7 @@ export const MealAPI = {
 
         return {
         id: meal.idMeal,
+        recipe_id: meal.idMeal,
         title: meal.strMeal,
         description: meal.strInstructions
             ? meal.strInstructions.substring(0, 120) + "..."

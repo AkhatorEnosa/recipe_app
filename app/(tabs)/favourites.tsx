@@ -27,7 +27,6 @@ const Favourites = () => {
         if (!apiResponse.ok) throw new Error('Failed to fetch favourites')
         
         const favouritesData = await apiResponse.json();
-        console.log(favouritesData)
 
         // transform the data to match the RecipeCard component's expected format
         const transformedFavorites = favouritesData.map((favourite: any) => ({
