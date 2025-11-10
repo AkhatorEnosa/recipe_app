@@ -12,7 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { COLORS } from "../../constants/colors";
 
 import { Ionicons } from "@expo/vector-icons";
-import { WebView } from "react-native-webview";
+// import { WebView } from "react-native-webview";
 import { Recipe } from "@/constants/types";
 
 const RecipeDetailScreen = () => {
@@ -64,11 +64,11 @@ const RecipeDetailScreen = () => {
     loadRecipeDetail();
   }, [recipeId, userId]);
 
-  const getYouTubeEmbedUrl = (url: string) => {
-    // example url: https://www.youtube.com/watch?v=mTvlmY4vCug
-    const videoId = url.split("v=")[1];
-    return `https://www.youtube.com/embed/${videoId}`;
-  };
+//   const getYouTubeEmbedUrl = (url: string) => {
+//     // example url: https://www.youtube.com/watch?v=mTvlmY4vCug
+//     const videoId = url.split("v=")[1];
+//     return `https://www.youtube.com/embed/${videoId}`;
+//   };
 
   const handleToggleSave = async () => {
     setIsSaving(true);
@@ -289,7 +289,7 @@ const RecipeDetailScreen = () => {
 
           <TouchableOpacity
             style={recipeDetailStyles.primaryButton}
-            onPress={handleToggleSave}
+            onPress={() => handleToggleSave()}
             disabled={isSaving}
           >
             <LinearGradient

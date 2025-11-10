@@ -1,5 +1,5 @@
 export type Recipe = {
-    youtubeUrl: any;
+    youtubeUrl?: any;
     id?: number;
     recipeId?: any;
     title?: any;

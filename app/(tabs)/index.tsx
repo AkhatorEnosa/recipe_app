@@ -13,10 +13,11 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 const HomeScreen = () => {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[] | []>([]);
   const [categories, setCategories] = useState([]);
   const [featuredRecipe, setFeaturedRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadingCategory, setLoadingCategory] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   const loadData = async () => {
@@ -59,6 +60,7 @@ const HomeScreen = () => {
 
   const loadCategoryData = async (category: string) => {
     try {
+      setLoadingCategory(true);
       const meals = await MealAPI.filterByCategory(category);
       const transformedMeals = meals
         .map((meal : Recipe) => MealAPI.transformMealData(meal))
@@ -67,6 +69,8 @@ const HomeScreen = () => {
     } catch (error) {
       console.error("Error loading category data:", error);
       setRecipes([]);
+    } finally {
+      setLoadingCategory(false);
     }
   };
 
@@ -160,31 +164,39 @@ const HomeScreen = () => {
           )
         }
 
-        <View style={homeStyles.recipesSection}>
-          <View style={homeStyles.sectionHeader}>
-            <Text style={homeStyles.sectionTitle}>{selectedCategory}</Text>
-          </View>
-
-
-          {recipes.length > 0 ? (
-            <FlatList
-              data={recipes}
-              renderItem={({ item }) => <RecipeCard recipe={item} />}
-              keyExtractor={(item) => item.id.toString()}
-              numColumns={2}
-              columnWrapperStyle={homeStyles.row}
-              contentContainerStyle={homeStyles.recipesGrid}
-              scrollEnabled={false}
-              // ListEmptyComponent={}
-            />
-          ) : (
-            <View style={homeStyles.emptyState}>
-              <Ionicons name="restaurant-outline" size={64} color={COLORS.primary} />
-              <Text style={homeStyles.emptyTitle}>No recipes found</Text>
-              <Text style={homeStyles.emptyDescription}>Try a different category</Text>
+        {
+          loadingCategory ? (
+            <View style={{ marginTop: 70 }}>
+              <LoadingSpinner message="Loading recipes..." size='large'/>
             </View>
-          )}
-        </View>
+          ) : (
+            <View style={homeStyles.recipesSection}>
+              <View style={homeStyles.sectionHeader}>
+                <Text style={homeStyles.sectionTitle}>{selectedCategory}</Text>
+              </View>
+
+
+              {recipes.length > 0 ? (
+                <FlatList
+                  data={recipes}
+                  renderItem={({ item }) => <RecipeCard recipe={item} />}
+                  keyExtractor={(item) => item.id.toString()}
+                  numColumns={2}
+                  columnWrapperStyle={homeStyles.row}
+                  contentContainerStyle={homeStyles.recipesGrid}
+                  scrollEnabled={false}
+                  // ListEmptyComponent={}
+                />
+              ) : (
+                <View style={homeStyles.emptyState}>
+                  <Ionicons name="restaurant-outline" size={64} color={COLORS.primary} />
+                  <Text style={homeStyles.emptyTitle}>No recipes found</Text>
+                  <Text style={homeStyles.emptyDescription}>Try a different category</Text>
+                </View>
+              )}
+            </View> 
+          )
+        }
         
       </ScrollView>
     </View>
